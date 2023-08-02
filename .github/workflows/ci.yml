@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-mac:
-    name: Build macOS
+    name: Build macOS automake x64
     runs-on: maxos-11
     if: github.event_name == 'skip this'
     env:
@@ -36,7 +36,7 @@ jobs:
           if-no-files-found: error
 
   build-linux:
-    name: Build linux
+    name: Build linux automake x64
     runs-on: ubuntu-20.04
     steps:
       - name: download and extract
@@ -62,8 +62,35 @@ jobs:
           name: xerces-c-3.2.4-linux-x64.zip
           path: xerces-c-3.2.4/dist/xerces-c-3.2.4-linux-x64.zip
           if-no-files-found: error
+  build-linux-cmake:
+    name: Build linux x64 with cmake
+    runs-on: ubuntu-20.04
+    steps:
+      - name: download and extract
+        run: |
+          curl --output xerces-c-3.2.4.tar.gz https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.4.tar.gz
+          tar xf xerces-c-3.2.4.tar.gz
+      - name: build
+        run: |
+          cd xerces-c-3.2.4
+          cmake -G "Unix Makefiles" -Dnetwork:BOOL=OFF  -Dtranscoder=iconv -Dxmlch-type=char16_t -Dmutex-manager=standard
+          cmake --build . --config Release
+          sudo cmake --build . --config Release --target install
+      - name: infos
+        run: |
+          ls -l /usr/local/lib/
+          ldd /usr/local/lib/libxerces-c-3.2.so
+      - name: package
+        run: |
+          cd xerces-c-3.2.4/dist/usr/local
+          zip -r ../../xerces-c-3.2.4-linux-cmake-x64.zip *
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xerces-c-3.2.4-linux-cmake-x64.zip
+          path: xerces-c-3.2.4/dist/xerces-c-3.2.4-linux-cmake-x64.zip
+          if-no-files-found: error
   build-msvc:
-    name: Build Windows msvc 2019
+    name: Build Windows msvc 2019 x64
     runs-on: windows-2019
     steps:
       - name: download and extract
@@ -85,7 +112,7 @@ jobs:
           path: xerces-c-3.2.4-windows-msvc-2019-x64.zip
           if-no-files-found: error
   build-mingw:
-    name: Build Windows mingw
+    name: Build Windows mingw x64
     runs-on: windows-2019
     steps:
       - name: download and extract
