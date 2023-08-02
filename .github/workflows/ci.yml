@@ -43,6 +43,10 @@ jobs:
           ./configure --disable-network --enable-xmlch-char16_t --enable-mutexmgr-standard
           make -j4
           make DESTDIR=`pwd`/dist install
+      - name: infos
+        run: |
+          ls -l dist/usr/local/lib/
+          ldd dist/usr/local/lib/libxerces-c-3.2.so
       - name: package
         run: |
           cd xerces-c-3.2.4/dist/usr/local
