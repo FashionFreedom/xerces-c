@@ -61,3 +61,17 @@ jobs:
           name: xerces-c-3.2.4-linux-x64.zip
           path: xerces-c-3.2.4/dist/xerces-c-3.2.4-linux-x64.zip
           if-no-files-found: error
+  build-msvc:
+    name: Build Windows msvc
+    runs-on: windows-2019
+    steps:
+      - name: download and extract
+        run: |
+          curl --output xerces-c-3.2.4.tar.gz https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.4.tar.gz
+          tar xf xerces-c-3.2.4.tar.gz
+      - name: build
+        run: |
+          cd xerces-c-3.2.4
+          cmake -Dnetwork:BOOL=OFF  -Dtranscoder=windows -Dxmlch-type=char16_t -Dmutex-manager=standard
+          cmake --build . --config Release 
+          cmake --build . --config Release --target install 
