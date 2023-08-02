@@ -28,7 +28,7 @@ jobs:
       - name: package
         run: |
           cd xerces-c-3.2.4/dist/usr/local
-          zip ../../xerces-c-3.2.4-maxos-11.zip *
+          zip -r ../../xerces-c-3.2.4-maxos-11.zip *
       - uses: actions/upload-artifact@v3
         with:
           name: xerces-c-3.2.4-maxos-11.zip
@@ -56,7 +56,7 @@ jobs:
       - name: package
         run: |
           cd xerces-c-3.2.4/dist/usr/local
-          zip ../../xerces-c-3.2.4-linux-x64.zip *
+          zip -r ../../xerces-c-3.2.4-linux-x64.zip *
       - uses: actions/upload-artifact@v3
         with:
           name: xerces-c-3.2.4-linux-x64.zip
