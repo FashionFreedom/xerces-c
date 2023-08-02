@@ -11,6 +11,7 @@ jobs:
   build-mac:
     name: Build macOS
     runs-on: maxos-11
+    if: github.event_name == 'skip this'
     env:
       MACOSX_DEPLOYMENT_TARGET: "10.15"
     steps:
