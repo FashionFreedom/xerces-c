@@ -45,7 +45,7 @@ jobs:
       - name: build
         run: |
           cd xerces-c-3.2.4
-          ./configure --disable-network --enable-xmlch-char16_t --enable-mutexmgr-standard
+          ./configure --disable-network --enable-transcoder-iconv --enable-xmlch-char16_t --enable-mutexmgr-standard
           make -j4
           make DESTDIR=`pwd`/dist install
       - name: infos
