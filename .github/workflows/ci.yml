@@ -31,7 +31,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: xerces-c-3.2.4-maxos-11.zip
-          path: dist/xerces-c-3.2.4-maxos-11.zip
+          path: xerces-c-3.2.4/dist/xerces-c-3.2.4-maxos-11.zip
           if-no-files-found: error
 
   build-linux:
@@ -50,8 +50,8 @@ jobs:
           make DESTDIR=`pwd`/dist install
       - name: infos
         run: |
-          ls -l dist/usr/local/lib/
-          ldd dist/usr/local/lib/libxerces-c-3.2.so
+          ls -l xerces-c-3.2.4/dist/usr/local/lib/
+          ldd xerces-c-3.2.4/dist/usr/local/lib/libxerces-c-3.2.so
       - name: package
         run: |
           cd xerces-c-3.2.4/dist/usr/local
@@ -59,5 +59,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: xerces-c-3.2.4-linux-x64.zip
-          path: dist/xerces-c-3.2.4-linux-x64.zip
+          path: xerces-c-3.2.4/dist/xerces-c-3.2.4-linux-x64.zip
           if-no-files-found: error
