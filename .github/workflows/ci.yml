@@ -73,21 +73,20 @@ jobs:
       - name: build
         run: |
           cd xerces-c-3.2.4
-          cmake -G "Unix Makefiles" -Dnetwork:BOOL=OFF  -Dtranscoder=iconv -Dxmlch-type=char16_t -Dmutex-manager=standard
+          cmake -G "Unix Makefiles" -Dnetwork:BOOL=OFF  -Dtranscoder=iconv -Dxmlch-type=char16_t -Dmutex-manager=standard -DCMAKE_INSTALL_PREFIX=/opt/xerces-c
           cmake --build . --config Release
           sudo cmake --build . --config Release --target install
       - name: infos
         run: |
-          ls -l /usr/local/lib/
-          ldd /usr/local/lib/libxerces-c-3.2.so
+          ls -l /opt/xerces-c/lib
+          ldd /opt/xerces-c/lib/libxerces-c-3.2.so
       - name: package
         run: |
-          cd xerces-c-3.2.4/dist/usr/local
-          zip -r ../../xerces-c-3.2.4-linux-cmake-x64.zip *
+          zip -r xerces-c-3.2.4-linux-cmake-x64.zip /opt/xerces-c/
       - uses: actions/upload-artifact@v3
         with:
           name: xerces-c-3.2.4-linux-cmake-x64.zip
-          path: xerces-c-3.2.4/dist/xerces-c-3.2.4-linux-cmake-x64.zip
+          path: xerces-c-3.2.4-linux-cmake-x64.zip
           if-no-files-found: error
   build-msvc:
     name: Build Windows msvc 2019 x64
