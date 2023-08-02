@@ -28,6 +28,11 @@ jobs:
         run: |
           cd xerces-c-3.2.4/dist/usr/local
           zip ../../xerces-c-3.2.4-maxos-11.zip *
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xerces-c-3.2.4-maxos-11.zip
+          path: dist/xerces-c-3.2.4-maxos-11.zip
+          if-no-files-found: error
 
   build-linux:
     name: Build linux
@@ -51,3 +56,8 @@ jobs:
         run: |
           cd xerces-c-3.2.4/dist/usr/local
           zip ../../xerces-c-3.2.4-linux-x64.zip *
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xerces-c-3.2.4-linux-x64.zip
+          path: dist/xerces-c-3.2.4-linux-x64.zip
+          if-no-files-found: error
