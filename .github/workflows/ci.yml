@@ -74,4 +74,34 @@ jobs:
           cd xerces-c-3.2.4
           cmake -Dnetwork:BOOL=OFF  -Dtranscoder=windows -Dxmlch-type=char16_t -Dmutex-manager=standard
           cmake --build . --config Release 
-          cmake --build . --config Release --target install 
+          cmake --build . --config Release --target install
+      - name: package
+        run: |
+          C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.2.4-windows-msvc-x64.zip C:\"Program Files (x86)"\xerces-c\
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xerces-c-3.2.4-windows-msvc-x64.zip
+          path: xerces-c-3.2.4-windows-msvc-x64.zip
+          if-no-files-found: error
+  build-mingw:
+    name: Build Windows mingw
+    runs-on: windows-2019
+    steps:
+      - name: download and extract
+        run: |
+          curl --output xerces-c-3.2.4.tar.gz https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.4.tar.gz
+          tar xf xerces-c-3.2.4.tar.gz
+      - name: build
+        run: |
+          cd xerces-c-3.2.4
+          cmake -G "Unix Makefiles" -Dnetwork:BOOL=OFF  -Dtranscoder=windows -Dxmlch-type=char16_t -Dmutex-manager=standard
+          cmake --build . --config Release 
+          cmake --build . --config Release --target install
+      - name: package
+        run: |
+          C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.2.4-windows-mingw-x64.zip C:\"Program Files (x86)"\xerces-c\
+      - uses: actions/upload-artifact@v3
+        with:
+          name: xerces-c-3.2.4-windows-mingw-x64.zip
+          path: xerces-c-3.2.4-windows-mingw-x64.zip
+          if-no-files-found: error
