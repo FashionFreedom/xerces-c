@@ -94,7 +94,7 @@ jobs:
       - name: build
         run: |
           cd xerces-c-3.2.4
-          cmake -G "Unix Makefiles" -Dnetwork:BOOL=OFF  -Dtranscoder=windows -Dxmlch-type=char16_t -Dmutex-manager=standard
+          cmake -G "MinGW Makefiles" -Dnetwork:BOOL=OFF  -Dtranscoder=windows -Dxmlch-type=char16_t -Dmutex-manager=standard
           cmake --build . --config Release 
           cmake --build . --config Release --target install
       - name: package
