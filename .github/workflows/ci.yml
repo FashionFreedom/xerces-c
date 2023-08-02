@@ -62,7 +62,7 @@ jobs:
           path: xerces-c-3.2.4/dist/xerces-c-3.2.4-linux-x64.zip
           if-no-files-found: error
   build-msvc:
-    name: Build Windows msvc
+    name: Build Windows msvc 2019
     runs-on: windows-2019
     steps:
       - name: download and extract
@@ -72,16 +72,16 @@ jobs:
       - name: build
         run: |
           cd xerces-c-3.2.4
-          cmake -Dnetwork:BOOL=OFF  -Dtranscoder=windows -Dxmlch-type=char16_t -Dmutex-manager=standard
+          cmake -G "Visual Studio 16 2019" -Dnetwork:BOOL=OFF  -Dtranscoder=windows -Dxmlch-type=char16_t -Dmutex-manager=standard
           cmake --build . --config Release 
           cmake --build . --config Release --target install
       - name: package
         run: |
-          C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.2.4-windows-msvc-x64.zip C:\"Program Files (x86)"\xerces-c\
+          C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.2.4-windows-msvc-2019-x64.zip C:\"Program Files (x86)"\xerces-c\
       - uses: actions/upload-artifact@v3
         with:
-          name: xerces-c-3.2.4-windows-msvc-x64.zip
-          path: xerces-c-3.2.4-windows-msvc-x64.zip
+          name: xerces-c-3.2.4-windows-msvc-2019-x64.zip
+          path: xerces-c-3.2.4-windows-msvc-2019-x64.zip
           if-no-files-found: error
   build-mingw:
     name: Build Windows mingw
