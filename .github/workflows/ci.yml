@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+  pull_request:
+
+jobs:
+  build-mac:
+    name: Build macOS
+    runs-on: maxos-11
+    env:
+      MACOSX_DEPLOYMENT_TARGET: "10.15"
+    steps:
+      - name: download and extract
+        run: |
+          curl --output xerces-c-3.2.4.tar.gz https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.4.tar.gz
+          tar xf xerces-c-3.2.4.tar.gz
+      - name: build
+        run: |
+          cd xerces-c-3.2.4
+          ./configure --disable-network --enable-transcoder-macosunicodeconverter --enable-xmlch-char16_t --enable-mutexmgr-standard CFLAGS="-arch x86_64 -arch arm64" CXXFLAGS="-arch x86_64 -arch arm64"
+          make -j4
+          make DESTDIR=`pwd`/dist install
+      - name: package
+        run: |
+          cd xerces-c-3.2.4/dist/usr/local
+          zip ../../xerces-c-3.2.4-maxos-11.zip *
+
+  build-linux:
+    name: Build linux
+    runs-on: ubuntu-20.04
+    steps:
+      - name: download and extract
+        run: |
+          curl --output xerces-c-3.2.4.tar.gz https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.4.tar.gz
+          tar xf xerces-c-3.2.4.tar.gz
+      - name: build
+        run: |
+          cd xerces-c-3.2.4
+          ./configure --disable-network --enable-xmlch-char16_t --enable-mutexmgr-standard
+          make -j4
+          make DESTDIR=`pwd`/dist install
+      - name: package
+        run: |
+          cd xerces-c-3.2.4/dist/usr/local
+          zip ../../xerces-c-3.2.4-linux-x64.zip *
