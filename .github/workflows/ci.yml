@@ -23,7 +23,7 @@ jobs:
           cd xerces-c-3.2.4
           ./configure --disable-network --enable-transcoder-macosunicodeconverter --enable-xmlch-char16_t --enable-mutexmgr-standard CFLAGS="-arch x86_64 -arch arm64" CXXFLAGS="-arch x86_64 -arch arm64"
           make -j4
-          make DESTDIR=`pwd`/dist install
+          make DESTDIR=`pwd`/dist install-strip
       - name: package
         run: |
           cd xerces-c-3.2.4/dist/usr/local
@@ -47,7 +47,7 @@ jobs:
           cd xerces-c-3.2.4
           ./configure --disable-network --enable-transcoder-iconv --enable-xmlch-char16_t --enable-mutexmgr-standard
           make -j4
-          make DESTDIR=`pwd`/dist install
+          make DESTDIR=`pwd`/dist install-strip
       - name: infos
         run: |
           ls -l xerces-c-3.2.4/dist/usr/local/lib/
