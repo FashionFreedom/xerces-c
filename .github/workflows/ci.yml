@@ -102,7 +102,7 @@ jobs:
           cmake --build . --config Release 
           cmake --build . --config Release --target install
       - name: package
-        run: | libxerces-c.dll
+        run: |
           Copy-Item "C:\Program Files (x86)\xerces-c\bin\libxerces-c.dll" -Destination "C:\Program Files (x86)\xerces-c\lib"
           Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\share" -Force -Recurse
           Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\bin" -Force -Recurse
