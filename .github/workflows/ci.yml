@@ -11,8 +11,6 @@ jobs:
   build-mac:
     name: Build macOS automake x64
     runs-on: macos-11
-    env:
-      MACOSX_DEPLOYMENT_TARGET: "10.15"
     steps:
       - name: download and extract
         run: |
@@ -20,6 +18,7 @@ jobs:
           tar xf xerces-c-3.2.4.tar.gz
       - name: build
         run: |
+          sudo xcode-select -s /Applications/Xcode_12.4.app
           cd xerces-c-3.2.4
           ./configure --disable-network --enable-transcoder-macosunicodeconverter --enable-xmlch-char16_t --enable-mutexmgr-standard CFLAGS="-arch x86_64 -arch arm64" CXXFLAGS="-arch x86_64 -arch arm64"
           make -j4
