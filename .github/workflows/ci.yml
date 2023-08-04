@@ -10,7 +10,7 @@ on:
 jobs:
   build-mac:
     name: Build macOS automake x64
-    runs-on: maxos-12
+    runs-on: macos-12
     env:
       MACOSX_DEPLOYMENT_TARGET: "10.15"
     steps:
