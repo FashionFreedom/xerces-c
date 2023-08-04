@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-mac:
-    name: Build macOS automake x64
+    name: Build macOS universal
     runs-on: macos-11
     steps:
       - name: download and extract
@@ -31,11 +31,11 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: xerces-c-3.2.4-maxos-11-universal.zip
-          path: xerces-c-3.2.4/dist/xerces-c-3.2.4-maxos-11.universal.zip
+          path: xerces-c-3.2.4/dist/xerces-c-3.2.4-maxos-11-universal.zip
           if-no-files-found: error
 
   build-linux:
-    name: Build linux automake x64
+    name: Build linux x64
     runs-on: ubuntu-20.04
     steps:
       - name: download and extract
@@ -63,7 +63,7 @@ jobs:
           path: xerces-c-3.2.4/dist/xerces-c-3.2.4-linux-x64.zip
           if-no-files-found: error
   build-msvc:
-    name: Build Windows msvc 2019 x64
+    name: Build windows msvc 2019 x64
     runs-on: windows-2019
     steps:
       - name: download and extract
@@ -87,7 +87,7 @@ jobs:
           path: xerces-c-3.2.4-windows-msvc-2019-x64.zip
           if-no-files-found: error
   build-mingw:
-    name: Build Windows mingw x64
+    name: Build windows mingw x64
     runs-on: windows-2019
     steps:
       - name: download and extract
