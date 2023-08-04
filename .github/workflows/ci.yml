@@ -78,8 +78,8 @@ jobs:
           cmake --build . --config Release --target install
       - name: package
         run: |
-          rmdir C:\"Program Files (x86)"\xerces-c\share
-          rmdir C:\"Program Files (x86)"\xerces-c\bin
+          rm -R C:\"Program Files (x86)"\xerces-c\share
+          rm -R C:\"Program Files (x86)"\xerces-c\bin
           C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.2.4-windows-msvc-2019-x64.zip C:\"Program Files (x86)"\xerces-c\
       - uses: actions/upload-artifact@v3
         with:
@@ -102,8 +102,8 @@ jobs:
           cmake --build . --config Release --target install
       - name: package
         run: |
-          rmdir C:\"Program Files (x86)"\xerces-c\share
-          rmdir C:\"Program Files (x86)"\xerces-c\bin
+          Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\share" -Force -Recurse
+          Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\bin" -Force -Recurse
           C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.2.4-windows-mingw-x64.zip C:\"Program Files (x86)"\xerces-c\
       - uses: actions/upload-artifact@v3
         with:
