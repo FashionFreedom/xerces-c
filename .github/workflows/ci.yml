@@ -132,6 +132,7 @@ jobs:
           name: xerces-c-3.2.4-windows-mingw-x64.zip
       - uses: softprops/action-gh-release@v1
         with:
+          tag_name: "v3.2.4"
           fail_on_unmatched_files: true
           prerelease: true
           files: |
