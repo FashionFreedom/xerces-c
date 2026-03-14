@@ -65,7 +65,7 @@ jobs:
           path: xerces-c-3.3.0/dist/xerces-c-3.3.0-linux-x64.zip
           if-no-files-found: error
   build-msvc:
-    name: Build windows msvc 2022 x64
+    name: Build windows msvc 2022
     runs-on: windows-2022
     steps:
       - name: download and extract
