@@ -22,18 +22,18 @@ jobs:
       - name: build
         run: |
           cd xerces-c-3.3.0
-          ./configure --disable-network --enable-transcoder-macosunicodeconverter --enable-xmlch-char16_t --enable-mutexmgr-standard CFLAGS="-arch x86_64 -arch arm64" CXXFLAGS="-arch x86_64 -arch arm64"
+          ./configure --disable-network --enable-transcoder-macosunicodeconverter --enable-xmlch-char16_t --enable-mutexmgr-standard CFLAGS="-arch x86_64 -arch arm64 -mmacosx-version-min=11.0" CXXFLAGS="-arch x86_64 -arch arm64 -mmacosx-version-min=11.0"
           make -j4
           make DESTDIR=`pwd`/dist install-strip
       - name: package
         run: |
           cd xerces-c-3.3.0/dist/usr/local
           rm -rf bin
-          zip -r ../../xerces-c-3.3.0-maxos-11-universal.zip *
+          zip -r ../../xerces-c-3.3.0-macos-11-universal.zip *
       - uses: actions/upload-artifact@v7
         with:
-          name: xerces-c-3.3.0-maxos-11-universal.zip
-          path: xerces-c-3.3.0/dist/xerces-c-3.3.0-maxos-11-universal.zip
+          name: xerces-c-3.3.0-macos-11-universal.zip
+          path: xerces-c-3.3.0/dist/xerces-c-3.3.0-macos-11-universal.zip
           if-no-files-found: error
 
   build-linux:
@@ -122,7 +122,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v8
         with:
-          name: xerces-c-3.3.0-maxos-11-universal.zip
+          name: xerces-c-3.3.0-macos-11-universal.zip
       - uses: actions/download-artifact@v8
         with:
           name: xerces-c-3.3.0-linux-x64.zip
@@ -138,7 +138,7 @@ jobs:
           fail_on_unmatched_files: true
           prerelease: true
           files: |
-            xerces-c-3.3.0-maxos-11-universal.zip
+            xerces-c-3.3.0-macos-11-universal.zip
             xerces-c-3.3.0-linux-x64.zip
             xerces-c-3.3.0-windows-msvc-2022-x64.zip
             xerces-c-3.3.0-windows-mingw-x64.zip
