@@ -111,7 +111,7 @@ jobs:
           Copy-Item "C:\Program Files (x86)\xerces-c\bin\xerces-c_3_3.dll" -Destination "C:\Program Files (x86)\xerces-c\lib"
           Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\share" -Force -Recurse
           Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\bin" -Force -Recurse
-          C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.3.0-windows-msvc-2022-x64.zip C:\"Program Files (x86)"\xerces-c\
+          C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.3.0-windows-msvc-2022-arm64.zip C:\"Program Files (x86)"\xerces-c\
       - uses: actions/upload-artifact@v7
         with:
           name: xerces-c-3.3.0-windows-msvc-2022-arm64.zip
