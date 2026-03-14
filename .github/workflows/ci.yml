@@ -84,10 +84,10 @@ jobs:
           cmake --build . --config Release --target install
       - name: package
         run: |
-          Copy-Item "C:\Program Files (x86)\xerces-c\bin\xerces-c_3_3.dll" -Destination "C:\Program Files (x86)\xerces-c\lib"
-          Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\share" -Force -Recurse
-          Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\bin" -Force -Recurse
-          C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.3.0-windows-msvc-2022-${{ matrix.arch }}.zip C:\"Program Files (x86)"\xerces-c\
+          Copy-Item "C:\Program Files\xerces-c\bin\xerces-c_3_3.dll" -Destination "C:\Program Files\xerces-c\lib"
+          Remove-Item -LiteralPath "C:\Program Files\xerces-c\share" -Force -Recurse
+          Remove-Item -LiteralPath "C:\Program Files\xerces-c\bin" -Force -Recurse
+          C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.3.0-windows-msvc-2022-${{ matrix.arch }}.zip C:\"Program Files"\xerces-c\
       - uses: actions/upload-artifact@v7
         with:
           name: xerces-c-3.3.0-windows-msvc-2022-${{ matrix.arch }}.zip
