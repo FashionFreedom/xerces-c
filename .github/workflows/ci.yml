@@ -149,5 +149,5 @@ jobs:
             xerces-c-3.3.0-macos-11-universal.zip
             xerces-c-3.3.0-linux-x64.zip
             xerces-c-3.3.0-windows-msvc-2022-x64.zip
-            xerces-c-3.3.0-windows-msvc-2022-arm64.zip
+            xerces-c-3.3.0-windows-msvc-2022-ARM64.zip
             xerces-c-3.3.0-windows-mingw-x64.zip
