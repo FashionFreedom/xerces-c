@@ -89,6 +89,34 @@ jobs:
           name: xerces-c-3.3.0-windows-msvc-2022-x64.zip
           path: xerces-c-3.3.0-windows-msvc-2022-x64.zip
           if-no-files-found: error
+  build-msvc-arm64:
+    name: Build windows msvc 2022 arm64
+    runs-on: windows-2022
+    steps:
+      - name: download and extract
+        run: |
+          curl --output xerces-c-3.3.0.tar.gz https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.3.0.tar.gz
+          tar xf xerces-c-3.3.0.tar.gz
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64_arm64
+      - name: build
+        run: |
+          cd xerces-c-3.3.0
+          cmake -G "Visual Studio 17 2022" -Dnetwork:BOOL=OFF  -Dtranscoder=windows -Dxmlch-type=char16_t -Dmutex-manager=standard
+          cmake --build . --config Release 
+          cmake --build . --config Release --target install
+      - name: package
+        run: |
+          Copy-Item "C:\Program Files (x86)\xerces-c\bin\xerces-c_3_3.dll" -Destination "C:\Program Files (x86)\xerces-c\lib"
+          Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\share" -Force -Recurse
+          Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\bin" -Force -Recurse
+          C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.3.0-windows-msvc-2022-x64.zip C:\"Program Files (x86)"\xerces-c\
+      - uses: actions/upload-artifact@v7
+        with:
+          name: xerces-c-3.3.0-windows-msvc-2022-arm64.zip
+          path: xerces-c-3.3.0-windows-msvc-2022-arm64.zip
+          if-no-files-found: error
   build-mingw:
     name: Build windows mingw x64
     runs-on: windows-2022
@@ -117,7 +145,7 @@ jobs:
 
   release:
     name: Release
-    needs: [build-mac, build-linux, build-msvc, build-mingw]
+    needs: [build-mac, build-linux, build-msvc, build-msvc-arm64, build-mingw]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v8
@@ -131,6 +159,9 @@ jobs:
           name: xerces-c-3.3.0-windows-msvc-2022-x64.zip
       - uses: actions/download-artifact@v8
         with:
+          name: xerces-c-3.3.0-windows-msvc-2022-arm64.zip
+      - uses: actions/download-artifact@v8
+        with:
           name: xerces-c-3.3.0-windows-mingw-x64.zip
       - uses: softprops/action-gh-release@v2
         with:
@@ -141,4 +172,5 @@ jobs:
             xerces-c-3.3.0-maxos-11-universal.zip
             xerces-c-3.3.0-linux-x64.zip
             xerces-c-3.3.0-windows-msvc-2022-x64.zip
+            xerces-c-3.3.0-windows-msvc-2022-arm64.zip
             xerces-c-3.3.0-windows-mingw-x64.zip
