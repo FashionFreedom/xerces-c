@@ -69,7 +69,7 @@ jobs:
     name: Build windows msvc 2022 x64
     strategy:
       matrix:
-        arch: [ x64 ARM64 ]
+        arch: [x64, ARM64]
     runs-on: windows-2022
     steps:
       - name: download and extract
