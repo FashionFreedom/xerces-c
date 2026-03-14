@@ -31,7 +31,7 @@ jobs:
           cd xerces-c-3.2.4/dist/usr/local
           rm -rf bin
           zip -r ../../xerces-c-3.2.4-maxos-11-universal.zip *
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: xerces-c-3.2.4-maxos-11-universal.zip
           path: xerces-c-3.2.4/dist/xerces-c-3.2.4-maxos-11-universal.zip
@@ -60,7 +60,7 @@ jobs:
           cd xerces-c-3.2.4/dist/usr/local
           rm -rf bin
           zip -r ../../xerces-c-3.2.4-linux-x64.zip *
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: xerces-c-3.2.4-linux-x64.zip
           path: xerces-c-3.2.4/dist/xerces-c-3.2.4-linux-x64.zip
@@ -85,7 +85,7 @@ jobs:
           Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\share" -Force -Recurse
           Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\bin" -Force -Recurse
           C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.2.4-windows-msvc-2019-x64.zip C:\"Program Files (x86)"\xerces-c\
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: xerces-c-3.2.4-windows-msvc-2019-x64.zip
           path: xerces-c-3.2.4-windows-msvc-2019-x64.zip
@@ -110,7 +110,7 @@ jobs:
           Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\share" -Force -Recurse
           Remove-Item -LiteralPath "C:\Program Files (x86)\xerces-c\bin" -Force -Recurse
           C:\"Program Files"\7-Zip\7z.exe a xerces-c-3.2.4-windows-mingw-x64.zip C:\"Program Files (x86)"\xerces-c\
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: xerces-c-3.2.4-windows-mingw-x64.zip
           path: xerces-c-3.2.4-windows-mingw-x64.zip
@@ -121,19 +121,19 @@ jobs:
     needs: [build-mac, build-linux, build-msvc, build-mingw]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: xerces-c-3.2.4-maxos-11-universal.zip
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: xerces-c-3.2.4-linux-x64.zip
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: xerces-c-3.2.4-windows-msvc-2019-x64.zip
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: xerces-c-3.2.4-windows-mingw-x64.zip
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         with:
           tag_name: "v3.2.4"
           fail_on_unmatched_files: true
